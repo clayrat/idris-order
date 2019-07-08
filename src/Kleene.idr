@@ -22,7 +22,7 @@ lemma3 f  Z    mf = bottomLeast (f bottom)
 lemma3 f (S n) mf = mf (approx f n) (approx f (S n)) (lemma3 f n mf)
 
 lemma4 : PDCPoset t => (f : t -> t) -> (n, m : Nat) -> monotone f -> leq (approx f n) (approx f (n+m)) 
-lemma4 f n Z     mf = rewrite plusZeroRightNeutral n in 
+lemma4 f n  Z    mf = rewrite plusZeroRightNeutral n in 
                       leqRefl (approx f n)
 lemma4 f n (S m) mf = rewrite plusCommutative n (S m) in 
                       rewrite plusCommutative m n in 
@@ -30,21 +30,21 @@ lemma4 f n (S m) mf = rewrite plusCommutative n (S m) in
                         (lemma3 f n mf) 
                         (mf (approx f n) (approx f (n+m)) (lemma4 f n m mf))
 
-natDiff : (n1, n2 : Nat) -> (n3 ** Either (n1 = n2+n3) (n2 = n1+n3))
-natDiff Z n2 = (n2 ** Right Refl)
-natDiff (S n1) n2 = 
-  let (n**lr) = natDiff n1 n2 in 
+natDiff : (n, m : Nat) -> (p ** Either (n = m+p) (m = n+p))
+natDiff  Z    m = (m ** Right Refl)
+natDiff (S n) m = 
+  let (p**lr) = natDiff n m in 
   case lr of 
-    Left prf => (S n ** Left $ rewrite plusCommutative n2 (S n) in 
-                               rewrite plusCommutative n n2 in 
+    Left prf => (S p ** Left $ rewrite plusCommutative m (S p) in 
+                               rewrite plusCommutative p m in 
                                cong prf)
-    Right prf => case n of 
+    Right prf => case p of 
       Z => (1 ** Left $ rewrite prf in 
-                        rewrite plusZeroRightNeutral n1 in 
-                        sym $ plusCommutative n1 1)
-      S n => (n ** Right $ rewrite prf in 
-                           rewrite plusCommutative n1 n in
-                           plusCommutative n1 (S n))
+                        rewrite plusZeroRightNeutral n in 
+                        sym $ plusCommutative n 1)
+      S p => (p ** Right $ rewrite prf in 
+                           rewrite plusCommutative n p in
+                           plusCommutative n (S p))
                       
 omegaChain : PDCPoset t => (f : t -> t) -> (n, m : Nat) -> monotone f 
                         -> Either (leq (approx f n) (approx f m)) (leq (approx f m) (approx f n))
