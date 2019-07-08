@@ -46,7 +46,8 @@ natDiff (S n1) n2 =
                            rewrite plusCommutative n1 n in
                            plusCommutative n1 (S n))
                       
-omegaChain : PDCPoset t => (f : t -> t) -> (n, m : Nat) -> monotone f -> Either (leq (approx f n) (approx f m)) (leq (approx f m) (approx f n))
+omegaChain : PDCPoset t => (f : t -> t) -> (n, m : Nat) -> monotone f 
+                        -> Either (leq (approx f n) (approx f m)) (leq (approx f m) (approx f n))
 omegaChain f n m mf = 
   let (p ** prf) = natDiff n m in 
   case prf of 
@@ -77,7 +78,8 @@ lemma5 @{pdc} f cf x (S n) prf =
   continuousImpliesMonotone @{posetFromPDC pdc} f cf (approx f n) x $ 
   lemma5 f cf x n prf
 
-kleene : PDCPoset t => (f : t -> t) -> continuous f -> (x ** (supremum (\x2 => (n ** x2 = approx f n)) x, f x = x, (x2 : t) -> f x2 = x2 -> leq x x2))
+kleene : PDCPoset t => (f : t -> t) -> continuous f 
+                    -> (x ** (supremum (\x2 => (n ** x2 = approx f n)) x, f x = x, (x2 : t) -> f x2 = x2 -> leq x x2))
 kleene @{pdc} f cf = 
   let 
     dir = kleeneChainDirected f $ continuousImpliesMonotone f cf
