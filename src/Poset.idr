@@ -1,7 +1,7 @@
 module Poset
 
 %access public export
-%default partial
+%default total
 
 interface Poset t where
   leq : t -> t -> Type
