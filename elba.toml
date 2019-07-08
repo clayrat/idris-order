@@ -1,0 +1,13 @@
+[package]
+name = "clayrat/idris-order"
+version = "0.1.0"
+authors = []
+
+[targets.lib]
+path = "src"
+name = "order"
+mods = [ "Poset"
+       , "Kleene"
+       ]
+idris_opts = ["-p", "contrib"]
+

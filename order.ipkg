@@ -1,0 +1,8 @@
+package order
+
+sourcedir = src
+
+opts = "-p contrib"
+
+modules = Poset
+        , Kleene 
