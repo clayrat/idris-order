@@ -4,4 +4,4 @@ Order & domain theory
 Sources
 -------
 
-* https://github.com/stepchowfun/proofs/blob/master/coq/Kleene/Kleene.v
+* https://github.com/stepchowfun/proofs/blob/master/proofs/Kleene/Kleene.v
